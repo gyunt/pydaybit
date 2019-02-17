@@ -26,5 +26,5 @@ def to_str(d):
         if exponent < 0:
             formatter = f'%.{-exponent}f'
             return formatter % d
-        return str(d.quantize(Decimal(1)))
+        return str(d.quantize(Decimal(1)) if d == d.to_integral() else d.normalize())
     return str(d)
