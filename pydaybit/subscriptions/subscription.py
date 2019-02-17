@@ -3,7 +3,7 @@ import re
 
 from pydaybit.daybit_channels import DaybitChannel
 from pydaybit.exceptions import PrimaryKeyError
-from pydaybit.utility import optional
+from pydaybit.utility import optional, to_str
 
 
 class Subscription(DaybitChannel):
@@ -15,7 +15,7 @@ class Subscription(DaybitChannel):
         self.updated_timestamp = None
 
     def __truediv__(self, other):
-        return self.socket.channel(';'.join([self.topic, str(other)]),
+        return self.socket.channel(';'.join([self.topic, to_str(other)]),
                                    channel_t=type(self))
 
     async def join(self, payload=None):

@@ -1,4 +1,5 @@
 import inspect
+from decimal import Decimal
 
 
 def optional(*optional_args):
@@ -15,3 +16,15 @@ def optional(*optional_args):
         return decorated
 
     return args_deco
+
+
+def to_str(d):
+    if isinstance(d, Decimal):
+        decimal_tuple = d.as_tuple()
+        exponent = decimal_tuple.exponent
+
+        if exponent < 0:
+            formatter = f'%.{-exponent}f'
+            return formatter % d
+        return str(d.quantize(Decimal(1)))
+    return str(d)
